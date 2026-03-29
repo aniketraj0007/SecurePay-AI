@@ -3,412 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SentinelAI - SaaS Fraud Detection Platform</title>
-    <!-- Google Fonts -->
+    <title>SecurePay-AI | Enterprise Fraud Defense</title>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <!-- Abstract Backgrounds -->
+<body class="dark-app showing-auth">
+
     <div class="bg-orb orb-primary"></div>
     <div class="bg-orb orb-secondary"></div>
 
-    <!-- Auth Overlay (Simulated Login) -->
-    <div id="auth-overlay" class="auth-overlay">
-        <div class="glass-panel auth-card">
-            <div class="auth-header">
-                <i class="fa-solid fa-microchip icon-logo"></i>
-                <h2>Sentinel<span class="text-neon">AI</span></h2>
-                <p>Advanced Fraud Detection API</p>
+    <!-- Authentication Overlay -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-card">
+            <div class="auth-card-top">
+                <div class="logo-box">
+                    <i data-lucide="shield-check" class="icon-brand"></i>
+                </div>
+                <h2 id="auth-title">Log in to SecurePay-AI</h2>
+                <p class="text-secondary" id="auth-subtitle">Welcome back! Please enter your details.</p>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="tab-login" type="button">Login</button>
+                    <button class="auth-tab" id="tab-signup" type="button">Sign Up</button>
+                </div>
             </div>
-            <form id="login-form">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <div class="input-icon-wrap">
-                        <i class="fa-regular fa-envelope"></i>
-                        <input type="email" placeholder="admin@sentinel.ai" required value="admin@sentinel.ai">
-                    </div>
+            <!-- Alerts -->
+            <div id="auth-alert" class="auth-alert hidden"></div>
+            <form id="auth-form" class="auth-form">
+                <div class="input-set field-name hidden">
+                    <label>Full Name</label>
+                    <input type="text" id="inp-name" placeholder="John Doe">
                 </div>
-                <div class="form-group">
+                <div class="input-set">
+                    <label>Work Email</label>
+                    <input type="email" id="inp-email" placeholder="admin@enterprise.com" required>
+                </div>
+                <div class="input-set">
                     <label>Password</label>
-                    <div class="input-icon-wrap">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="••••••••" required value="startup2026">
-                    </div>
+                    <input type="password" id="inp-pwd" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn-primary w-100 mt-2">
-                    Initialize System <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                <button type="submit" class="btn-primary w-full mt-2" id="btn-auth-submit">
+                    <span class="btn-text" id="auth-btn-text">Authenticate</span>
+                    <i data-lucide="arrow-right" class="icon-sm btn-icon-right"></i>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Main SaaS Application -->
-    <div id="app-container" class="app-container hidden">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar glass-panel">
-            <div class="sidebar-brand">
-                <i class="fa-solid fa-microchip text-neon"></i>
-                <span>Sentinel<span class="text-neon">AI</span></span>
+    <!-- Main SaaS App -->
+    <div id="app-screen" class="app-screen">
+        <!-- Topnav -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <i data-lucide="menu" class="icon-md md-menu-btn" style="display:none; cursor:pointer;" id="mobile-menu"></i>
+                <div class="nav-brand">
+                    <i data-lucide="hexagon" class="icon-brand-sm"></i> SecurePay<span class="text-neon">-AI</span>
+                </div>
             </div>
-            
-            <div class="sidebar-menu">
-                <p class="menu-label">CORE</p>
-                <a href="#dashboard" class="menu-item active" data-view="dashboard">
-                    <i class="fa-solid fa-chart-pie"></i> Dashboard
-                </a>
-                <a href="#scanner" class="menu-item" data-view="scanner">
-                    <i class="fa-solid fa-radar"></i> ML Scanner
-                </a>
-                
-                <p class="menu-label mt-4">DEVELOPER</p>
-                <a href="#api" class="menu-item" data-view="api">
-                    <i class="fa-solid fa-code"></i> API Access <span class="badge badge-pro">PRO</span>
-                </a>
-                <a href="#logs" class="menu-item" data-view="logs">
-                    <i class="fa-solid fa-server"></i> Webhooks
-                </a>
-                
-                <p class="menu-label mt-4">ACCOUNT</p>
-                <a href="#billing" class="menu-item" data-view="billing">
-                    <i class="fa-solid fa-credit-card"></i> Subscription
-                </a>
-                <a href="#settings" class="menu-item" data-view="settings">
-                    <i class="fa-solid fa-gear"></i> Settings
-                </a>
+            <div class="nav-center">
+                <div class="global-search">
+                    <i data-lucide="search" class="icon-sm text-secondary"></i>
+                    <input type="text" placeholder="Search commands, API keys, or Ctrl+K...">
+                    <div class="search-kbd">⌘K</div>
+                </div>
             </div>
-
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="avatar">AN</div>
-                    <div class="user-info">
-                        <span class="user-name">Aniket Sir</span>
-                        <span class="user-plan">Enterprise Plan</span>
+            <div class="nav-right">
+                <button class="btn-primary btn-sm mx-2" id="btn-quick-scan">
+                    <i data-lucide="scan-line" class="icon-sm mr-2"></i> Run Fraud Scan
+                </button>
+                <button class="btn-icon bell-btn mr-2"><i data-lucide="bell" class="icon-sm"></i><span class="dot-red"></span></button>
+                
+                <div class="profile-wrap relative" id="profile-trigger">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=06b6d4&color=fff" class="user-avatar" id="avatar-img">
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <a href="#" class="view-switch" data-target="billing"><i data-lucide="credit-card"></i> Billing & Plan</a>
+                        <a href="#" class="view-switch" data-target="api"><i data-lucide="key"></i> API Keys</a>
+                        <hr>
+                        <a href="#" id="btn-logout" class="text-danger"><i data-lucide="log-out"></i> Logout</a>
                     </div>
                 </div>
-                <button class="btn-logout" id="logout-btn" title="Logout">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </button>
             </div>
-        </aside>
+        </nav>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Topbar -->
-            <header class="topbar glass-panel">
-                <div class="search-bar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search transactions, API keys, rules...">
+        <div class="app-body">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-group">
+                    <div class="sidebar-label text-neon">Overview</div>
+                    <a class="side-link active" data-view="dashboard">
+                        <i data-lucide="layout-dashboard" class="icon-sm"></i> Dashboard
+                    </a>
+                    <a class="side-link" data-view="billing">
+                        <i data-lucide="credit-card" class="icon-sm"></i> Subscription Plan
+                    </a>
                 </div>
-                <div class="topbar-actions">
-                    <button class="icon-btn position-relative" title="Alerts">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="notification-dot"></span>
-                    </button>
-                    <button class="btn-secondary btn-sm" id="live-status">
-                        <span class="dot green-dot"></span> System Online
-                    </button>
+                <div class="sidebar-group">
+                    <div class="sidebar-label text-neon">Machine Learning</div>
+                    <a class="side-link" data-view="inference">
+                        <i data-lucide="cpu" class="icon-sm"></i> ML Engine
+                    </a>
+                    <a class="side-link" data-view="rules">
+                        <i data-lucide="list-filter" class="icon-sm"></i> Custom Rules
+                    </a>
                 </div>
-            </header>
+                <div class="sidebar-group">
+                    <div class="sidebar-label text-neon">Developers</div>
+                    <a class="side-link" data-view="simulator">
+                        <i data-lucide="credit-card" class="icon-sm"></i> Payment Simulator
+                    </a>
+                    <a class="side-link" data-view="api">
+                        <i data-lucide="key" class="icon-sm"></i> API Integration
+                    </a>
+                </div>
+            </aside>
 
-            <!-- Dynamic Views -->
-            <div class="content-wrapper">
+            <!-- Main Content -->
+            <main class="content-area">
                 
                 <!-- View: Dashboard -->
                 <div id="view-dashboard" class="view active-view">
-                    <div class="page-header">
-                        <div>
-                            <h1>Overview</h1>
-                            <p class="text-muted">Real-time fraud analytics and system performance.</p>
-                        </div>
-                        <div class="date-range">
-                            <i class="fa-regular fa-calendar"></i> Last 24 Hours <i class="fa-solid fa-chevron-down ml-2"></i>
-                        </div>
-                    </div>
-
-                    <!-- KPI Cards -->
-                    <div class="kpi-grid">
-                        <div class="kpi-card glass-panel">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Total Processed</span>
-                                <div class="kpi-icon bg-blue"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                            </div>
-                            <div class="kpi-value text-neon">24,592</div>
-                            <div class="kpi-trend positive"><i class="fa-solid fa-arrow-trend-up"></i> +12.5% vs yesterday</div>
-                        </div>
-                        <div class="kpi-card glass-panel">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Fraud Prevented</span>
-                                <div class="kpi-icon bg-red"><i class="fa-solid fa-shield-virus"></i></div>
-                            </div>
-                            <div class="kpi-value text-danger">₹1.2M</div>
-                            <div class="kpi-trend positive"><i class="fa-solid fa-arrow-trend-up"></i> 342 transactions stopped</div>
-                        </div>
-                        <div class="kpi-card glass-panel">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Model Accuracy</span>
-                                <div class="kpi-icon bg-purple"><i class="fa-solid fa-brain"></i></div>
-                            </div>
-                            <div class="kpi-value text-primary">99.8%</div>
-                            <div class="kpi-trend neutral"><i class="fa-solid fa-minus"></i> Random Forest Ensemble</div>
-                        </div>
-                        <div class="kpi-card glass-panel">
-                            <div class="kpi-header">
-                                <span class="kpi-title">API Latency</span>
-                                <div class="kpi-icon bg-green"><i class="fa-solid fa-stopwatch"></i></div>
-                            </div>
-                            <div class="kpi-value text-success">42ms</div>
-                            <div class="kpi-trend positive"><i class="fa-solid fa-arrow-trend-down"></i> -5ms improvement</div>
-                        </div>
-                    </div>
-
-                    <!-- Charts & Tables -->
-                    <div class="dashboard-grid mt-4">
-                        <div class="chart-container glass-panel">
-                            <div class="panel-header">
-                                <h3>Transaction Volume (API Requests)</h3>
-                            </div>
-                            <!-- Pure CSS mock chart -->
-                            <div class="css-chart-area">
-                                <div class="chart-y-axis">
-                                    <span>5k</span><span>4k</span><span>3k</span><span>2k</span><span>1k</span><span>0</span>
+                    <header class="view-header">
+                        <h1>Live Analytics <span class="badge badge-success ml-2">LIVE 🔥</span></h1>
+                    </header>
+                    
+                    <div class="dash-grid">
+                        <div class="dash-left">
+                            <div class="metrics-row">
+                                <div class="metric-card">
+                                    <div class="m-card-top">
+                                        <span class="m-label">Transactions Scanned</span>
+                                        <i data-lucide="activity" class="icon-sm text-secondary"></i>
+                                    </div>
+                                    <div class="m-value text-neon counter" data-target="2450892">0</div>
+                                    <div class="m-trend text-success"><i data-lucide="arrow-up-right" class="icon-xs"></i> 14% this week</div>
                                 </div>
-                                <div class="chart-bars">
-                                    <div class="c-bar" style="height: 40%"></div>
-                                    <div class="c-bar" style="height: 60%"></div>
-                                    <div class="c-bar" style="height: 30%"></div>
-                                    <div class="c-bar" style="height: 80%"></div>
-                                    <div class="c-bar alert-bar" style="height: 95%"><div class="fraud-segment" style="height:20%"></div></div>
-                                    <div class="c-bar" style="height: 50%"></div>
-                                    <div class="c-bar" style="height: 65%"></div>
+                                <div class="metric-card">
+                                    <div class="m-card-top">
+                                        <span class="m-label">Total Fraud Blocked</span>
+                                        <i data-lucide="shield-alert" class="icon-sm text-secondary"></i>
+                                    </div>
+                                    <div class="m-value counter prefix" data-target="1542000" data-prefix="₹">0</div>
+                                    <div class="m-trend text-success"><i data-lucide="shield-check" class="icon-xs"></i> 4,021 cards protected</div>
+                                </div>
+                                <div class="metric-card ai-insights">
+                                    <div class="m-card-top">
+                                        <span class="m-label text-neon"><i data-lucide="sparkles" class="icon-sm"></i> AI Insight</span>
+                                    </div>
+                                    <div class="m-value mt-2">"Fraud attempts spiked by 12% in the last 2 hours. Mostly origin IP: RU & CN."</div>
                                 </div>
                             </div>
-                            <div class="chart-x-axis">
-                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+
+                            <div class="panel-card main-chart-container">
+                                <div class="panel-header">
+                                    <h3 class="panel-title">Real-Time Transaction Flow</h3>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <canvas id="liveChart"></canvas>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="recent-tx glass-panel">
-                            <div class="panel-header">
-                                <h3>Latest API Predictions</h3>
-                                <a href="#" class="text-primary text-sm">View All</a>
+                        <div class="dash-right">
+                            <div class="panel-card mb-4">
+                                <div class="panel-header"><h3 class="panel-title">Current Risk Score</h3></div>
+                                <div class="gauge-container">
+                                    <div class="gauge-arc">
+                                        <div class="gauge-fill" id="risk-gauge"></div>
+                                    </div>
+                                    <div class="gauge-val" id="risk-val">12%</div>
+                                    <p class="text-secondary text-center text-sm mt-2">Overall platform threat level is low.</p>
+                                </div>
                             </div>
-                            <div class="tx-list">
-                                <div class="tx-row">
-                                    <div class="tx-status status-safe"><i class="fa-solid fa-check"></i></div>
-                                    <div class="tx-info">
-                                        <div class="tx-id">TXN-8921A</div>
-                                        <div class="tx-time">Just now</div>
-                                    </div>
-                                    <div class="tx-amount">₹4,500.00</div>
-                                    <div class="tx-score text-success">98% Safe</div>
+
+                            <div class="panel-card">
+                                <div class="panel-header">
+                                    <h3 class="panel-title"><i data-lucide="radio" class="icon-sm text-danger animate-pulse"></i> Live Alerts</h3>
                                 </div>
-                                <div class="tx-row">
-                                    <div class="tx-status status-danger"><i class="fa-solid fa-xmark"></i></div>
-                                    <div class="tx-info">
-                                        <div class="tx-id">TXN-4492X</div>
-                                        <div class="tx-time">2 mins ago</div>
-                                    </div>
-                                    <div class="tx-amount">₹1,25,000.00</div>
-                                    <div class="tx-score text-danger">94% Fraud</div>
-                                </div>
-                                <div class="tx-row">
-                                    <div class="tx-status status-safe"><i class="fa-solid fa-check"></i></div>
-                                    <div class="tx-info">
-                                        <div class="tx-id">TXN-1002B</div>
-                                        <div class="tx-time">5 mins ago</div>
-                                    </div>
-                                    <div class="tx-amount">₹850.00</div>
-                                    <div class="tx-score text-success">99% Safe</div>
-                                </div>
-                                <div class="tx-row">
-                                    <div class="tx-status status-warning"><i class="fa-solid fa-exclamation"></i></div>
-                                    <div class="tx-info">
-                                        <div class="tx-id">TXN-7731Y</div>
-                                        <div class="tx-time">12 mins ago</div>
-                                    </div>
-                                    <div class="tx-amount">₹45,000.00</div>
-                                    <div class="tx-score text-warning">65% Review</div>
+                                <div class="live-alerts" id="alerts-box">
+                                    <!-- Populated dynamically via JS -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- View: ML Scanner (Manual Input) -->
-                <div id="view-scanner" class="view hidden">
-                    <div class="page-header">
-                        <div>
-                            <h1>ML Decision Engine</h1>
-                            <p class="text-muted">Manually test the Random Forest model with custom parameters.</p>
+                <!-- View: Custom Rules Engine -->
+                <div id="view-rules" class="view hidden">
+                    <header class="view-header"><h1>Custom Rules Engine</h1></header>
+                    <p class="text-secondary mb-6">Create explicit business logic rules that run before the ML model executes.</p>
+                    
+                    <div class="panel-card mb-6 p-6" style="padding: 2rem;">
+                        <div class="rule-item">
+                            <div class="rule-logic">
+                                <b>IF</b> 
+                                <select><option>Transaction Amount</option><option>Distance (km)</option></select> 
+                                <b>></b> 
+                                <input type="number" value="50000"> 
+                                <b>THEN</b>
+                            </div>
+                            <div class="badge badge-warning">FLAG FOR REVIEW</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-logic">
+                                <b>IF</b> 
+                                <select><option>Merchant Category</option></select> 
+                                <b>==</b> 
+                                <select><option>Crypto Exchange</option></select> 
+                                <b>THEN</b>
+                            </div>
+                            <div class="badge badge-danger">BLOCK</div>
+                        </div>
+                        <button class="btn-outline mt-2"><i data-lucide="plus"></i> Add New Rule</button>
+                    </div>
+                </div>
+
+                <!-- View: API & Usage -->
+                <div id="view-api" class="view hidden">
+                    <header class="view-header"><h1>API Access & Usage</h1></header>
+                    <div class="dash-grid mt-6">
+                        <div class="panel-card p-6" style="padding: 1.5rem;">
+                            <h3>Your Secret Keys</h3>
+                            <div class="mt-4 p-4" style="background: rgba(0,0,0,0.3); border-radius: 8px;">
+                                <div class="text-secondary mb-1">Production</div>
+                                <code class="text-primary blur-token">sk_live_2938472983748923</code>
+                            </div>
+                        </div>
+                        <div class="panel-card p-6" style="padding: 1.5rem;">
+                            <h3>API Usage (Free Tier)</h3>
+                            <div class="mt-4">
+                                <div class="flex justify-between text-sm mb-1" style="display:flex; justify-content:space-between;">
+                                    <span>Requests this month</span>
+                                    <span class="text-neon">8,420 / 10,000</span>
+                                </div>
+                                <div class="usage-bar-wrap"><div class="usage-bar-fill" style="width: 84%;"></div></div>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- View: Payment Gateway Simulator -->
+                <div id="view-simulator" class="view hidden">
+                    <header class="view-header"><h1>💳 Payment Simulation <span class="badge badge-warning ml-2">TEST MODE</span></h1></header>
+                    <p class="text-secondary mb-6">Experience the live Fraud Detection API protecting a checkout flow in real-time.</p>
                     
-                    <div class="scanner-layout">
-                        <div class="glass-panel form-panel">
-                            <h3>Transaction Parameters</h3>
-                            <form id="manual-scan-form">
-                                <div class="form-grid">
-                                    <div class="form-group">
+                    <div class="dash-grid mt-6">
+                        <div class="panel-card" style="padding: 2rem;">
+                            <h3>Simulate Transaction</h3>
+                            <form id="sim-form" class="mt-4">
+                                <div class="input-set">
+                                    <label>Cardholder Name</label>
+                                    <input type="text" id="sim-name" value="Aniket Sir" required>
+                                </div>
+                                <div class="input-set">
+                                    <label>Card Number</label>
+                                    <input type="text" value="4111 1111 1111 1111" required>
+                                </div>
+                                <div style="display:flex; gap:1rem;">
+                                    <div class="input-set" style="flex:1;">
+                                        <label>CVV</label>
+                                        <input type="text" value="123" required>
+                                    </div>
+                                    <div class="input-set" style="flex:1;">
                                         <label>Amount (₹)</label>
-                                        <input type="number" id="scan-amount" value="5000" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Distance from Home (km)</label>
-                                        <input type="number" id="scan-dist" value="12" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Merchant Category</label>
-                                        <select>
-                                            <option>Retail & E-commerce</option>
-                                            <option>Travel & Airlines</option>
-                                            <option>Electronics</option>
-                                            <option>Crypto Exchange</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Velocity (Txns past 24h)</label>
-                                        <input type="number" id="scan-velocity" value="2" required>
+                                        <input type="number" id="sim-amt" value="500000" required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn-primary w-100 mt-4">Run Inference Engine</button>
+                                <div class="input-set">
+                                    <label>Location (City, Country)</label>
+                                    <input type="text" id="sim-loc" value="Moscow, RU" required>
+                                </div>
+                                <button type="submit" class="btn-primary w-full mt-2" id="btn-pay-sim">Pay Securely</button>
                             </form>
                         </div>
-
-                        <div class="glass-panel result-panel flex-center" id="scan-result-container">
-                            <div class="idle-state text-center">
-                                <i class="fa-solid fa-microchip icon-huge text-muted"></i>
-                                <h3>Engine Ready</h3>
-                                <p class="text-muted">Awaiting parameters for inference.</p>
+                        <div class="panel-card" style="padding: 2rem;">
+                            <h3>Explainable AI (XAI) Output</h3>
+                            <p class="text-secondary text-sm mb-4">Real-time inference logs will appear here after payment attempt.</p>
+                            <div id="sim-loading" class="hidden text-center mt-6" style="padding: 2rem;">
+                                <i data-lucide="loader" class="icon-lg animate-pulse" style="margin:auto; display:block; color:var(--brand-cyan);"></i>
+                                <p class="mt-4 text-neon">Analyzing hundreds of data points...</p>
                             </div>
-                            
-                            <!-- Inserted by JS -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- View: API Access -->
-                <div id="view-api" class="view hidden">
-                    <div class="page-header">
-                        <div>
-                            <h1>API Integration</h1>
-                            <p class="text-muted">Connect your application to SentinelAI's real-time inference engine.</p>
-                        </div>
-                        <button class="btn-primary"><i class="fa-solid fa-key"></i> Generate New Key</button>
-                    </div>
-
-                    <div class="api-grid mt-4">
-                        <div class="glass-panel key-panel">
-                            <h3>Your API Keys</h3>
-                            <div class="api-key-box mt-3">
-                                <div class="key-name">Production Key (Default)</div>
-                                <div class="key-value-wrap">
-                                    <input type="password" value="sk_live_98a7sd98f7asdf87as9d8f7" readonly id="api-key-prod">
-                                    <button class="btn-icon" onclick="togglePassword('api-key-prod')"><i class="fa-regular fa-eye"></i></button>
-                                    <button class="btn-icon"><i class="fa-regular fa-copy"></i></button>
+                            <div id="sim-result" class="hidden p-4 mt-2" style="background: rgba(0,0,0,0.5); border-radius:12px; border:1px solid #333;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                    <div class="text-secondary">Risk Score: <span id="xai-score" class="font-bold text-neon" style="font-size:24px;">0</span>/100</div>
+                                    <div id="xai-action" class="badge">PENDING</div>
                                 </div>
-                            </div>
-                            <div class="api-key-box mt-3">
-                                <div class="key-name">Test Key (Sandbox)</div>
-                                <div class="key-value-wrap">
-                                    <input type="text" value="sk_test_12b3cd45e6f7g8h9i0jKA" readonly>
-                                    <button class="btn-icon"><i class="fa-regular fa-copy"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="glass-panel docs-panel">
-                            <div class="docs-header">
-                                <h3>cURL Request Example</h3>
-                                <div class="lang-tabs">
-                                    <span class="active">cURL</span>
-                                    <span>Python (Requests)</span>
-                                    <span>Node.js (Axios)</span>
-                                </div>
-                            </div>
-                            <pre class="code-block"><code>curl -X POST https://api.sentinel.ai/v1/predict \
-  -H "Authorization: Bearer sk_live_..." \
-  -H "Content-Type: application/json" \
-  -d '{
-    "amount": 5000,
-    "currency": "INR",
-    "distance_km": 12,
-    "merchant_category": "retail",
-    "tx_velocity_24h": 2
-  }'</code></pre>
-                            <div class="docs-response mt-3">
-                                <h4>Response Payload</h4>
-                                <pre class="code-block json"><code>{
-  "id": "pred_a8f93j2",
-  "status": "success",
-  "prediction": "genuine",
-  "probability_score": 0.985,
-  "risk_level": "low",
-  "processing_time_ms": 42
-}</code></pre>
+                                <h4 class="text-secondary mb-2 text-sm uppercase tracking-wider">XAI Reasoning:</h4>
+                                <div id="xai-reasons" class="text-sm font-mono" style="color:#a78bfa; line-height: 1.6;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- View: Subscription -->
+                <!-- View: Pricing / Billing -->
                 <div id="view-billing" class="view hidden">
-                    <div class="page-header text-center w-100">
-                        <h1 class="mx-auto">Upgrade to SentinelAI <span class="text-neon">PRO</span></h1>
-                        <p class="text-muted mx-auto">Scale your fraud detection as your business grows.</p>
-                    </div>
-
-                    <div class="pricing-grid mt-5">
-                        <div class="price-card glass-panel">
+                    <header class="view-header text-center" style="display:block;">
+                        <h1>Upgrade to <span class="text-neon">PRO</span></h1>
+                        <p class="text-secondary mx-auto mt-2">Scale your startup's fraud detection capabilities.</p>
+                    </header>
+                    
+                    <div class="pricing-grid mt-6">
+                        <div class="price-card">
                             <h3>Starter API</h3>
-                            <div class="price">Free</div>
-                            <p class="text-muted">Perfect for hackathons & testing</p>
-                            <ul class="features-list">
-                                <li><i class="fa-solid fa-check text-primary"></i> 1,000 API calls/month</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Basic ML Pipeline</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Community Support</li>
-                                <li><i class="fa-solid fa-xmark text-muted"></i> Webhooks & Dashboard</li>
+                            <div class="price-amt">Free</div>
+                            <p class="text-secondary">Perfect for testing</p>
+                            <ul>
+                                <li><i data-lucide="check"></i> 10,000 API calls/mo</li>
+                                <li><i data-lucide="check"></i> Basic ML Pipeline</li>
+                                <li><i data-x" class="text-secondary"></i> Custom Rules Engine</li>
                             </ul>
-                            <button class="btn-secondary w-100 mt-4">Current Plan</button>
+                            <button class="btn-outline w-full mt-4">Current Plan</button>
                         </div>
-                        <div class="price-card glass-panel premium-card">
-                            <div class="badge-popular">Most Popular</div>
+                        <div class="price-card pro">
                             <h3>Growth SaaS</h3>
-                            <div class="price">₹4,999<span>/mo</span></div>
-                            <p class="text-muted">For growing startups & platforms</p>
-                            <ul class="features-list">
-                                <li><i class="fa-solid fa-check text-primary"></i> 100,000 API calls/month</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Advanced Random Forest</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Real-time Webhooks</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Full Analytics Dashboard</li>
+                            <div class="price-amt text-neon">₹4,999<span style="font-size:14px;color:#888">/mo</span></div>
+                            <p class="text-secondary">For scaling platforms</p>
+                            <ul>
+                                <li><i data-lucide="check"></i> 250,000 API calls/mo</li>
+                                <li><i data-lucide="check"></i> Deep Learning Models</li>
+                                <li><i data-lucide="check"></i> Custom Rules Engine</li>
                             </ul>
-                            <button class="btn-primary w-100 mt-4">Upgrade to Growth</button>
+                            <button class="btn-primary w-full mt-4">Upgrade Now</button>
                         </div>
-                        <div class="price-card glass-panel">
-                            <h3>Enterprise</h3>
-                            <div class="price">Custom</div>
-                            <p class="text-muted">For banks and large gateways</p>
-                            <ul class="features-list">
-                                <li><i class="fa-solid fa-check text-primary"></i> Unlimited API calls</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Deep Learning Models</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> Dedicated Account Manager</li>
-                                <li><i class="fa-solid fa-check text-primary"></i> SLA 99.99% Uptime</li>
+                        <div class="price-card">
+                            <h3>Enterprise Gateway</h3>
+                            <div class="price-amt">Custom</div>
+                            <p class="text-secondary">For banks & gateways</p>
+                            <ul>
+                                <li><i data-lucide="check"></i> Unlimited Volume</li>
+                                <li><i data-lucide="check"></i> Dedicated SLA</li>
+                                <li><i data-lucide="check"></i> On-premise Options</li>
                             </ul>
-                            <button class="btn-secondary w-100 mt-4">Contact Sales</button>
+                            <button class="btn-outline w-full mt-4">Contact Sales</button>
                         </div>
                     </div>
                 </div>
 
-            </div>
-        </main>
-    </div>
+                <!-- View: Inference Engine (Scanner) -->
+                <div id="view-inference" class="view hidden">
+                    <header class="view-header"><h1>ML Inference Engine</h1></header>
+                    <div class="inference-layout mt-6">
+                        <div class="panel-card">
+                            <div class="panel-header border-b"><h3>JSON Form</h3></div>
+                            <div class="p-6" style="padding:1.5rem;">
+                                <textarea id="json-input" class="w-full" style="background:#0a0a0a; border:1px solid #333; color:#7ee787; padding:1rem; height:200px; font-family:monospace;">{
+  "amount": 45000,
+  "currency": "INR",
+  "distance_km": 12.5,
+  "merchant_category": "retail"
+}</textarea>
+                                <button class="btn-primary w-full mt-4" id="btn-run-inference">Execute ML Scan</button>
+                            </div>
+                        </div>
+                        <div class="panel-card">
+                            <div class="panel-header border-b"><h3>Output</h3></div>
+                            <div id="inference-empty" style="padding:3rem; text-align:center;">Awaiting Execution</div>
+                            <div id="inference-loading" class="hidden" style="padding:3rem; text-align:center;"><i data-lucide="loader" class="icon-lg animate-spin" style="margin:auto; display:block;"></i></div>
+                            <div id="inference-result" class="hidden p-6" style="padding:1.5rem;">
+                                <h1 id="r-score" class="text-neon" style="font-size:3rem;">99</h1>
+                                <h3 id="r-action" class="text-danger mt-2">BLOCK</h3>
+                                <pre id="r-json" style="background:#000; padding:1rem; margin-top:1rem; color:#8b5cf6; font-size:12px;"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Scripts -->
+            </main>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
