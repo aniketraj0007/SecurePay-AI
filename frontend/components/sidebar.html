@@ -1,36 +1,53 @@
 <!-- components/sidebar.html -->
+<div class="sidebar-header px-3 mb-6 flex items-center justify-between">
+    <button class="btn-icon hover-neon" id="sidebar-toggle-btn" title="Toggle Sidebar">
+        <i data-lucide="menu" class="icon-md"></i>
+    </button>
+</div>
+
 <div class="sidebar-group">
-    <div class="sidebar-label text-neon"><span class="label-text">Overview</span></div>
+    <div class="sidebar-label"><span class="label-text">Overview</span></div>
     <a class="side-link active" data-view="dashboard">
-        <i data-lucide="layout-dashboard" class="icon-sm"></i> <span class="link-text">Dashboard</span>
+        <i data-lucide="layout-dashboard" class="icon-sm"></i> 
+        <span class="link-text">Dashboard</span>
     </a>
     <a class="side-link" data-view="inference">
-        <i data-lucide="shield-alert" class="icon-sm"></i> <span class="link-text">Fraud Detection</span>
+        <i data-lucide="shield-alert" class="icon-sm"></i> 
+        <span class="link-text">Fraud Detection</span>
     </a>
     <a class="side-link locked-link" data-view="analytics" title="Login Required">
-        <i data-lucide="bar-chart-2" class="icon-sm"></i> <span class="link-text">Analytics</span> <i data-lucide="lock" class="icon-xs ml-auto text-secondary lock-icon"></i>
+        <i data-lucide="bar-chart-2" class="icon-sm"></i> 
+        <span class="link-text">Analytics</span> 
+        <i data-lucide="lock" class="icon-xs badge-lock lock-icon"></i>
     </a>
     <a class="side-link" data-view="csv-upload">
-        <i data-lucide="file-plus" class="icon-sm"></i> <span class="link-text">CSV Batch Scan</span>
+        <i data-lucide="file-plus" class="icon-sm"></i> 
+        <span class="link-text">CSV Batch Scan</span>
     </a>
 </div>
+
 <div class="sidebar-group">
-    <div class="sidebar-label text-neon"><span class="label-text">System</span></div>
+    <div class="sidebar-label"><span class="label-text">System</span></div>
     <a class="side-link locked-link" data-view="alerts" title="Login Required">
-        <i data-lucide="bell" class="icon-sm"></i> <span class="link-text">Alerts</span> <i data-lucide="lock" class="icon-xs ml-auto text-secondary lock-icon"></i>
+        <i data-lucide="bell" class="icon-sm"></i> 
+        <span class="link-text">Alerts</span> 
+        <span class="badge-dot red"></span>
     </a>
     <a class="side-link locked-link" data-view="api" title="Login Required">
-        <i data-lucide="terminal" class="icon-sm"></i> <span class="link-text">API Access</span> <i data-lucide="lock" class="icon-xs ml-auto text-secondary lock-icon"></i>
+        <i data-lucide="terminal" class="icon-sm"></i> 
+        <span class="link-text">API Access</span>
+        <span class="badge-dot green"></span>
     </a>
     <a class="side-link" data-view="settings">
-        <i data-lucide="settings" class="icon-sm"></i> <span class="link-text">Settings</span>
+        <i data-lucide="settings" class="icon-sm"></i> 
+        <span class="link-text">Settings</span>
     </a>
 </div>
 
 <div class="sidebar-promo mt-auto promo-container">
     <div class="panel-card promo-card p-4">
-        <div class="text-sm font-semibold mb-2">Unlock Enterprise Pro</div>
-        <p class="text-xs text-secondary mb-3">Get advanced XAI reports and unlimited API scans.</p>
-        <button class="btn-primary btn-sm w-full view-switch" data-target="billing">Upgrade Plan</button>
+        <div class="text-sm font-semibold mb-2">Enterprise Pro</div>
+        <p class="text-xs text-secondary mb-3">AI reports & unlimited scans.</p>
+        <button class="btn-primary btn-sm w-full view-switch" data-target="billing">Upgrade</button>
     </div>
 </div>

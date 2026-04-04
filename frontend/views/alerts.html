@@ -1,7 +1,87 @@
 <!-- views/alerts.html -->
-<header class="view-header"><h1>Real-Time Alerts</h1></header>
-<div class="panel-card glass-panel mt-6">
-    <div class="live-alerts p-6" id="alerts-box">
-        <!-- Populated dynamically via JS -->
+<div class="view-header flex items-center justify-between mb-8">
+    <div class="header-left">
+        <div class="text-xs uppercase tracking-widest font-bold text-secondary mb-1">Monitoring Engine</div>
+        <h1 class="text-3xl font-extrabold tracking-tighter text-white">Real-Time Alerts</h1>
+    </div>
+    <div class="header-right">
+        <div class="status-indicator flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-full border border-subtle">
+            <span class="badge-dot green animate-pulse-cyan"></span>
+            <span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Live Feed Active</span>
+        </div>
+    </div>
+</div>
+
+<!-- 1. Alert Summary Cards -->
+<div class="alert-metrics mb-8">
+    <div class="alert-metric-card">
+        <span class="alert-m-label text-secondary">Total Processed</span>
+        <span class="alert-m-value count-total">1,248</span>
+    </div>
+    <div class="alert-metric-card high-risk">
+        <span class="alert-m-label text-danger">High Risk</span>
+        <span class="alert-m-value count-high">42</span>
+    </div>
+    <div class="alert-metric-card med-risk">
+        <span class="alert-m-label text-warning">Medium Risk</span>
+        <span class="alert-m-value count-med">115</span>
+    </div>
+    <div class="alert-metric-card low-risk">
+        <span class="alert-m-label text-success">Low Risk</span>
+        <span class="alert-m-value count-low">1,091</span>
+    </div>
+</div>
+
+<!-- 2. Filters -->
+<div class="filter-bar mb-6">
+    <div class="filter-group">
+        <button class="filter-btn active" data-risk="all">All Alerts</button>
+        <button class="filter-btn text-danger" data-risk="high">High Risk</button>
+        <button class="filter-btn text-warning" data-risk="medium">Medium</button>
+        <button class="filter-btn text-success" data-risk="low">Low</button>
+    </div>
+    <div class="filter-group border-l border-subtle pl-4 ml-4">
+        <span class="text-[10px] uppercase font-bold text-secondary mr-2">Range:</span>
+        <button class="filter-btn active" data-time="today">Today</button>
+        <button class="filter-btn" data-time="week">Week</button>
+    </div>
+</div>
+
+<!-- 3. Main Alerts Feed & Details -->
+<div class="alerts-layout">
+    <!-- Live Feed Panel -->
+    <div class="alerts-feed" id="live-feed-box">
+        <!-- Alert Cards populate here -->
+        <div class="flex flex-col items-center justify-center h-full opacity-30 text-secondary py-20">
+            <i data-lucide="shield-alert" class="icon-lg mb-4"></i>
+            <p class="text-sm font-semibold">Initializing Security Engine...</p>
+        </div>
+    </div>
+
+    <!-- Details & Intelligence Column -->
+    <div class="details-column">
+        <!-- Alert Detail Panel -->
+        <div class="details-panel glass-panel" id="alert-detail-view">
+            <div class="flex flex-col items-center justify-center h-48 opacity-40 text-secondary italic text-center">
+                <i data-lucide="search" class="icon-md mb-2"></i>
+                <p class="text-xs">Select an alert to view<br>transaction intelligence.</p>
+            </div>
+        </div>
+
+        <!-- AI Pattern Insights -->
+        <div class="ai-insights-panel glass-panel">
+            <span class="insight-tag">AI Analysis</span>
+            <h4 class="text-sm font-bold text-white mb-2">Pattern Insight</h4>
+            <p class="text-xs text-secondary leading-relaxed mb-4">
+                Sudden surge in high-value transactions detected from IP addresses in <span class="text-neon-cyan font-bold">New Delhi</span>. Behavior analysis suggests a focused attempt during late-night hours.
+            </p>
+            <div class="bg-cyan-500/10 p-3 rounded-lg border border-cyan-500/20">
+                <div class="flex items-center gap-2 mb-1">
+                    <i data-lucide="lightbulb" class="icon-xs text-neon-cyan"></i>
+                    <span class="text-[10px] font-bold text-white uppercase tracking-wider">Recommendation</span>
+                </div>
+                <p class="text-[11px] text-secondary">Enhance 2FA requirements for transactions exceeding ₹50k from new devices.</p>
+            </div>
+        </div>
     </div>
 </div>

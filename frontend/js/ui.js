@@ -92,6 +92,10 @@ async function switchView(target) {
             window.csvHandler.initCSVHandler();
         }
 
+        if (target === 'alerts' && window.alerts) {
+            window.alerts.initAlerts();
+        }
+
         if (target === 'profile') {
             initProfile();
         }
@@ -199,7 +203,7 @@ async function initUI() {
 function setupGlobalListeners() {
     // Sidebar Toggle (Delegated for dynamic content)
     document.addEventListener('click', (e) => {
-        const toggle = e.target.closest('#sidebar-toggle');
+        const toggle = e.target.closest('#sidebar-toggle') || e.target.closest('#sidebar-toggle-btn');
         if (toggle) {
             const sidebar = document.getElementById('sidebar');
             if (sidebar) {
