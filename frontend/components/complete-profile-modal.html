@@ -1,0 +1,19 @@
+<!-- components/complete-profile-modal.html -->
+<div class="auth-card glass-panel p-8 mx-auto mt-20 rounded-xl" style="width: 400px; max-width: 90vw;">
+    <div class="text-center mb-6">
+        <i data-lucide="user-check" class="icon-lg text-neon mx-auto mb-2"></i>
+        <h2 style="font-size: 1.5rem; font-weight: 700;">Complete Account</h2>
+        <p class="text-secondary" style="font-size: 0.85rem;">Verification successful! Choose your password.</p>
+    </div>
+    <form id="complete-profile-form">
+        <div class="input-set mb-4">
+            <label>Full Name</label>
+            <input type="text" id="final-name" placeholder="Aniket Singh" required>
+        </div>
+        <div class="input-set mb-6">
+            <label>Choose Password</label>
+            <input type="password" id="final-pwd" placeholder="••••••••" minlength="6" required>
+        </div>
+        <button type="submit" class="btn-primary w-full" id="btn-final-signup">Finish Account Setup</button>
+    </form>
+</div>

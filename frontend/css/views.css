@@ -1,0 +1,65 @@
+/* css/views.css - Dashboard Grid, Charts, Tables, and Pricing Views */
+
+/* Dashboard Grid Layouts */
+.metrics-row.layout-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.dash-grid.layout-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+.dash-grid.layout-1-1 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.panel-card { border-radius: var(--radius-lg); overflow: hidden; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s, border-color 0.3s; }
+.panel-card:hover { transform: scale(1.02); box-shadow: 0 8px 30px rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); z-index: 2; }
+.panel-header { padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); border-bottom: 1px solid var(--border-subtle); }
+.panel-title { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.5px; }
+
+.metric-card { 
+    padding: 1.5rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    position: relative; z-index: 1;
+}
+.metric-card:hover { transform: scale(1.04); box-shadow: 0 15px 45px rgba(6,182,212,0.25); border-color: var(--brand-cyan); z-index: 10; }
+.m-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.m-label { font-size: 13px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.m-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -1px; }
+
+/* AI Insights & Real Time Alerts */
+.ai-insights { background: linear-gradient(145deg, rgba(168, 85, 247, 0.1), transparent); border: 1px solid var(--border-light); }
+
+.live-alerts { max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+.alert-item { background: rgba(0,0,0,0.4); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid var(--brand-warning); animation: slideInX 0.4s ease-out; border-top: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+.alert-item.critical { border-left-color: var(--brand-danger); background: linear-gradient(90deg, rgba(239,68,68,0.1), transparent); }
+.alert-item-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 0.5rem; color: var(--text-secondary); }
+.alert-title { font-weight: 600; color: var(--text-primary); font-size: 13px; }
+
+/* Risk Gauge */
+.gauge-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.gauge-arc { width: 140px; height: 70px; border-top-left-radius: 140px; border-top-right-radius: 140px; border: 18px solid rgba(255,255,255,0.05); border-bottom: 0; position: relative; overflow: hidden; }
+.gauge-fill { position: absolute; top: 0; left: 0; width: 140px; height: 140px; border-radius: 50%; border: 18px solid var(--brand-warning); clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); transform: rotate(20deg); transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1); }
+.gauge-fill.high-risk { border-color: var(--brand-danger); box-shadow: 0 0 20px var(--brand-danger); }
+.gauge-fill.low-risk { border-color: var(--brand-success); }
+.gauge-val { font-size: 28px; font-weight: 700; margin-top: -15px; }
+
+/* Table Styles */
+.table-wrap { overflow-x: auto; }
+.txn-table { border-collapse: collapse; font-size: 13px; width: 100%; }
+.txn-table th { padding: 1rem; color: var(--text-secondary); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-subtle); background: rgba(0,0,0,0.2); text-align: left; }
+.txn-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.03); font-weight: 500; }
+.txn-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* Usage & Pricing */
+.usage-bar-wrap { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+.usage-bar-fill { height: 100%; background: linear-gradient(90deg, var(--brand-cyan), var(--brand-primary)); transition: width 1s ease; }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.price-card { background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; }
+.price-card.pro { border-color: var(--brand-primary); box-shadow: 0 0 30px rgba(168,85,247,0.15); transform: scale(1.05); }
+.price-amt { font-size: 2.8rem; font-weight: 700; margin: 1rem 0; color: var(--text-primary); }
+.price-card ul { list-style: none; text-align: left; }
+.price-card li { margin-bottom: 1rem; font-size: 14px; display: flex; align-items: center; gap: 0.75rem; color: var(--text-primary); }
+
+@media (max-width: 1200px) {
+    .metrics-row.layout-4 { grid-template-columns: repeat(2, 1fr); }
+    .dash-grid.layout-2-1 { grid-template-columns: 1fr; }
+}
+@media (max-width: 1024px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.pro { transform: scale(1); }
+    .dash-grid.layout-1-1 { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,83 @@
+<!-- views/api.html -->
+<header class="view-header"><h1>API Access & Integration</h1></header>
+<p class="text-secondary mb-8">SecurePay-AI provides a RESTful API for real-time fraud detection. Integrate with your e-commerce or fintech backend in minutes.</p>
+
+<div class="dash-grid layout-2-1 mt-6 gap-6">
+    <div class="dash-left flex-col gap-6">
+        <div class="panel-card glass-panel p-6">
+            <h3 class="mb-4">Endpoint: <span class="text-neon">POST /check-fraud</span></h3>
+            <div class="p-4 bg-black-40 rounded-lg font-mono text-sm border-subtle mb-6" style="background: rgba(0,0,0,0.3);">
+                <span class="text-success">POST</span> https://api.securepay-ai.com/v1/check-fraud
+            </div>
+
+            <h4 class="mb-2 text-sm uppercase tracking-wider text-secondary">Request Body</h4>
+            <pre class="p-4 bg-black-40 rounded-lg font-mono text-xs border-subtle mb-6" style="background: rgba(0,0,0,0.2); color: #7ee787;">
+{
+  "amount": 45000,
+  "currency": "INR",
+  "location": "Mumbai, IN",
+  "device_id": "mob_92834",
+  "merchant_id": "merch_001"
+}</pre>
+
+            <h4 class="mb-2 text-sm uppercase tracking-wider text-secondary">cURL Example</h4>
+            <div class="relative">
+                <pre class="p-4 bg-black-40 rounded-lg font-mono text-xs border-subtle mb-6" style="background: rgba(0,0,0,0.5); color: #fff; overflow-x: auto;">
+curl -X POST https://api.securepay-ai.com/v1/check-fraud \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "amount": 45000, "location": "Mumbai, IN" }'</pre>
+                <button class="btn-icon absolute top-2 right-2"><i data-lucide="copy" class="icon-sm"></i></button>
+            </div>
+        </div>
+
+        <div class="panel-card glass-panel p-6">
+            <h3 class="mb-4">Response Schema</h3>
+            <pre class="p-4 bg-black-40 rounded-lg font-mono text-xs border-subtle mb-6" style="background: rgba(0,0,0,0.2); color: #a78bfa;">
+{
+  "status": "FRAUD",
+  "risk_score": 89.4,
+  "reasoning": [
+    "Unusual velocity detected for merchant_id",
+    "High distance from common shipping address"
+  ],
+  "action": "BLOCK"
+}</pre>
+        </div>
+    </div>
+
+    <div class="dash-right flex-col gap-6">
+        <div class="panel-card glass-panel p-6">
+            <h3>API Keys</h3>
+            <div class="mt-4 p-4 blur-bg rounded-lg border-subtle bg-black-40" style="background: rgba(0,0,0,0.2);">
+                <div class="text-secondary mb-1 text-xs uppercase tracking-wider">Production Key</div>
+                <div class="flex items-center gap-4">
+                    <code class="text-neon tracking-wider text-xs">sk_live_2938472983748923</code>
+                    <button class="btn-icon"><i data-lucide="copy" class="icon-sm"></i></button>
+                </div>
+            </div>
+            <button class="btn-outline w-full mt-4 text-xs">Rotate API Keys</button>
+        </div>
+
+        <div class="panel-card glass-panel p-6">
+            <h3>Usage Quota</h3>
+            <div class="mt-4">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-xs">Requests / mo</span>
+                    <span class="text-neon font-bold text-xs">18,420 / 50,000</span>
+                </div>
+                <div class="usage-bar-wrap w-full"><div class="usage-bar-fill" style="width: 36%;"></div></div>
+                <p class="text-xs text-secondary mt-3">Next reset: 12 days 4 hours.</p>
+            </div>
+        </div>
+        
+        <div class="panel-card glass-panel p-6 bg-orb-glow">
+            <h3>SDKs (Coming Soon)</h3>
+            <div class="flex gap-4 mt-4">
+                <i data-lucide="package" class="icon-md text-secondary" title="npm"></i>
+                <i data-lucide="box" class="icon-md text-secondary" title="Python Pip"></i>
+                <i data-lucide="code" class="icon-md text-secondary" title="Ruby Gems"></i>
+            </div>
+        </div>
+    </div>
+</div>

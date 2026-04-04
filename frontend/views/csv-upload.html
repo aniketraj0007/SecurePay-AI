@@ -1,0 +1,72 @@
+<!-- views/csv-upload.html -->
+<header class="view-header">
+    <h1>CSV Batch Scan <span class="badge badge-warning ml-2">PRO FEATURE</span></h1>
+</header>
+<p class="text-secondary mb-8">Upload your transaction logs for bulk fraud detection and risk scoring. Supporting CSV and JSON formats.</p>
+
+<div class="dash-grid layout-2-1 mt-6">
+    <div class="dash-left flex-col gap-6">
+        <div class="panel-card glass-panel p-10 text-center" id="drop-zone" style="border: 2px dashed var(--border-light); cursor: pointer; transition: 0.3s;">
+            <i data-lucide="upload-cloud" class="icon-lg text-neon mx-auto mb-4" style="width: 64px; height: 64px; filter: drop-shadow(0 0 10px rgba(168,85,247,0.4));"></i>
+            <h3 class="text-xl mb-2">Drag and drop your file here</h3>
+            <p class="text-secondary mb-6">Or click to browse your computer (Max 10MB)</p>
+            <input type="file" id="csv-input" class="hidden" accept=".csv">
+            <button class="btn-primary" onclick="document.getElementById('csv-input').click()"><i data-lucide="plus" class="icon-sm mr-2"></i> Choose CSV File</button>
+        </div>
+
+        <div id="batch-progress-container" class="hidden">
+            <div class="panel-card glass-panel p-6">
+                <div class="flex justify-between mb-4">
+                    <span class="font-semibold">Batch Processing (XAI Scanned)</span>
+                    <span id="progress-percent" class="text-neon">0%</span>
+                </div>
+                <div class="usage-bar-wrap w-full"><div id="batch-progress-bar" class="usage-bar-fill" style="width: 0%;"></div></div>
+                <p id="batch-status" class="text-xs text-secondary mt-3">Initializing ML model seeds...</p>
+            </div>
+        </div>
+
+        <div id="batch-results-panel" class="hidden">
+            <div class="panel-card glass-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Batch Results</h3>
+                    <button class="btn-outline btn-sm"><i data-lucide="download" class="icon-sm mr-2"></i> Export Report</button>
+                </div>
+                <div class="table-wrap">
+                    <table class="txn-table w-full text-left" id="batch-results-table">
+                        <thead>
+                            <tr>
+                                <th>Trans. ID</th>
+                                <th>Risk Score</th>
+                                <th>Reason (XAI)</th>
+                                <th>Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Injected after scan -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dash-right flex-col gap-6">
+        <div class="panel-card glass-panel p-6">
+            <h3 class="panel-title mb-4">CSV Requirements</h3>
+            <ul class="text-sm text-secondary list-none p-0">
+                <li class="flex gap-2 mb-3"><i data-lucide="check-circle" class="text-success icon-sm"></i> Columns: amount, currency, location, merchant</li>
+                <li class="flex gap-2 mb-3"><i data-lucide="check-circle" class="text-success icon-sm"></i> Max Limit: 5000 rows/file</li>
+                <li class="flex gap-2 mb-3"><i data-lucide="check-circle" class="text-success icon-sm"></i> Format: text/csv, application/json</li>
+            </ul>
+        </div>
+
+        <div class="panel-card glass-panel p-6 ai-insights">
+            <div class="m-card-top mb-3">
+                <span class="m-label text-neon"><i data-lucide="sparkles" class="icon-sm mr-2"></i> Batch Engine Insights</span>
+            </div>
+            <p class="text-sm font-medium" style="line-height: 1.6;">
+                "Our ML Engine can process 5000 transactions in <2s with 99.8% precision. Batch results include reasoning."
+            </p>
+        </div>
+    </div>
+</div>

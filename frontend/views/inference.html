@@ -1,0 +1,37 @@
+<!-- views/inference.html -->
+<header class="view-header">
+    <h1>Fraud Detection Engine <span class="badge badge-warning ml-2">SIMULATOR</span></h1>
+</header>
+<p class="text-secondary mb-6">Test the SecurePay-AI Deep Learning models with payload simulation and see Explainable AI (XAI) output.</p>
+
+<div class="inference-layout dash-grid gap-6 mt-6 layout-1-1">
+    <div class="panel-card glass-panel">
+        <div class="panel-header border-b"><h3>Transaction Payload JSON</h3></div>
+        <div class="p-6">
+            <textarea id="json-input" class="w-full font-mono text-sm rounded-lg" style="background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.1); color:#7ee787; padding:1.25rem; height:250px;">{
+"amount": 4500.00,
+"currency": "USD",
+"distance_km": 1150.5,
+"device_fingerprint": "new_device_uuid",
+"merchant_category": "crypto_exchange",
+"origin_ip": "185.20.x.x"
+}</textarea>
+            <button class="btn-primary w-full mt-4" id="btn-run-inference"><i data-lucide="play" class="icon-sm mr-2"></i> Execute XAI Scan</button>
+        </div>
+    </div>
+    <div class="panel-card glass-panel">
+        <div class="panel-header border-b"><h3>Explainable AI (XAI) Output</h3></div>
+        <div id="inference-empty" class="p-10 text-center text-secondary">Awaiting Execution...</div>
+        <div id="inference-loading" class="hidden p-10 text-center"><i data-lucide="loader" class="icon-lg animate-spin text-neon mx-auto block mb-4"></i> Analyzing payload features...</div>
+        <div id="inference-result" class="hidden p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-4xl text-danger font-bold flex items-center gap-3">
+                    <span id="r-score">92</span><span class="text-lg text-secondary">/100 Risk</span>
+                </h1>
+                <h3 id="r-action" class="badge badge-danger text-lg px-4 py-1">BLOCK</h3>
+            </div>
+            <div class="text-sm font-semibold mb-2 text-secondary uppercase tracking-wider">Reasoning Array:</div>
+            <pre id="r-json" class="font-mono text-xs rounded-lg whitespace-pre-wrap" style="background:rgba(0,0,0,0.4); padding:1rem; border:1px solid rgba(139, 92, 246, 0.3); color:#a78bfa; line-height:1.6;"></pre>
+        </div>
+    </div>
+</div>

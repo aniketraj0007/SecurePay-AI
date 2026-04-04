@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePay-AI | Enterprise Fraud Defense</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/views.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="dark-app">
+
+    <div class="bg-orb orb-primary"></div>
+    <div class="bg-orb orb-secondary"></div>
+
+    <!-- Modal Placeholders -->
+    <div id="auth-modal" class="auth-modal hidden"></div>
+    <div id="quick-scan-modal" class="auth-modal hidden" style="backdrop-filter: blur(10px); z-index: 100;"></div>
+    <div id="complete-profile-modal" class="auth-modal hidden" style="backdrop-filter: blur(20px); z-index: 200;"></div>
+
+    <!-- Main SaaS App Shell -->
+    <div id="app-screen" class="app-screen">
+        <!-- Topnav Placeholder -->
+        <nav class="top-nav" id="navbar"></nav>
+
+        <div class="app-body">
+            <!-- Sidebar Placeholder -->
+            <aside class="sidebar" id="sidebar"></aside>
+
+            <!-- Main Content Area with View Placeholder -->
+            <main class="content-area" id="view-content"></main>
+        </div>
+    </div>
+    
+    <!-- External SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    
+    <!-- Modular Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/scanner.js"></script>
+    <script src="js/csv-handler.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

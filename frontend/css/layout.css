@@ -1,0 +1,65 @@
+/* css/layout.css - Main App Structure, TopNav, and Sidebar */
+
+/* Main App Layout */
+.app-screen { display: flex; flex-direction: column; height: 100%; transition: filter 0.3s; }
+.app-screen.blurred { filter: blur(10px) brightness(0.7); pointer-events: none; }
+
+/* Top Navigation */
+.top-nav {
+    height: 70px; border-bottom: 1px solid var(--border-subtle); background: var(--bg-nav); backdrop-filter: blur(12px); 
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; z-index: 20;
+}
+.nav-left { display: flex; align-items: center; gap: 1rem; font-size: 15px; }
+.nav-brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.5px; text-transform: uppercase; }
+
+.nav-center { flex: 1; display: flex; justify-content: center; }
+.global-search {
+    display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg); padding: 0 1rem; width: 450px; height: 40px; transition: all 0.3s;
+}
+.global-search:focus-within { border-color: var(--brand-cyan); box-shadow: 0 0 15px rgba(6,182,212,0.2); }
+.global-search input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); padding: 0 0.75rem; font-size: 14px; }
+.search-kbd { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); }
+
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.bell-btn .dot-red { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--brand-danger); border-radius: 50%; box-shadow: 0 0 8px var(--brand-danger); }
+.user-avatar { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 2px solid var(--brand-cyan); transition: transform 0.2s; }
+.user-avatar:hover { transform: scale(1.05); }
+
+/* Sidebar */
+.app-body { display: flex; flex: 1; overflow: hidden; }
+.sidebar {
+    width: 260px; border-right: 1px solid var(--border-subtle); background: var(--bg-nav); padding: 2rem 1.25rem;
+    display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; z-index: 5; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar.closed { width: 80px; padding: 2rem 0.5rem; }
+.sidebar.closed .label-text, 
+.sidebar.closed .link-text, 
+.sidebar.closed .lock-icon, 
+.sidebar.closed .promo-container { display: none; }
+.sidebar.closed .side-link { justify-content: center; padding: 0.75rem 0; text-align: center; }
+.sidebar.closed .sidebar-label { text-align: center; padding-left: 0; }
+.sidebar.closed .side-link i { margin: 0; }
+.sidebar.closed .side-link.active { border-radius: 12px; border-left: none; }
+.sidebar-group { margin-bottom: 2rem; }
+.sidebar-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 1rem; padding-left: 0.75rem; color: var(--brand-primary-light); }
+.side-link {
+    display: flex; align-items: center; gap: 1rem; padding: 0.75rem; border-radius: var(--radius-md); color: var(--text-secondary);
+    font-size: 14px; font-weight: 500; transition: all 0.3s; margin-bottom: 0.25rem; cursor: pointer;
+}
+.side-link:hover { background: rgba(255,255,255,0.05); color: var(--brand-cyan); transform: translateX(6px); text-shadow: 0 0 12px rgba(6,182,212,0.6); }
+.side-link.active { background: linear-gradient(90deg, rgba(6,182,212,0.15), transparent); color: white; border-left: 3px solid var(--brand-cyan); border-radius: 0 12px 12px 0; box-shadow: inset 10px 0 20px -10px rgba(6,182,212,0.4); }
+.side-link.active i { color: var(--brand-cyan); filter: drop-shadow(0 0 10px var(--brand-cyan)); }
+
+/* Main Content Area */
+.content-area { flex: 1; overflow-y: auto; padding: 2.5rem 3rem; scroll-behavior: smooth; }
+.view-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+.view-header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -1px; text-shadow: 0 0 20px rgba(168,85,247,0.3); }
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .sidebar { position: fixed; left: -260px; z-index: 100; height: 100%; transition: left 0.3s; }
+    .sidebar.open { left: 0; }
+    .content-area { padding: 1.5rem; }
+    .nav-center { display: none; }
+}

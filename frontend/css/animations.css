@@ -1,0 +1,23 @@
+/* css/animations.css - Keyframes and Animation Utilities */
+
+@keyframes drift { 0% { transform: translate(0,0); } 100% { transform: translate(80px, 40px); } }
+@keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; filter: drop-shadow(0 0 10px var(--brand-primary)); } 100% { opacity: 0.6; } }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes slideInX { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+.animate-pulse { animation: pulse 2s infinite ease-in-out; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* Background Glowing Orbs */
+.bg-orb {
+    position: absolute; border-radius: 50%; filter: blur(120px);
+    z-index: -1; pointer-events: none; opacity: 0.4;
+}
+.orb-primary { 
+    width: 600px; height: 600px; background: var(--brand-primary); 
+    top: -200px; left: -200px; animation: drift 15s infinite alternate ease-in-out; 
+}
+.orb-secondary { 
+    width: 500px; height: 500px; background: var(--brand-cyan); 
+    bottom: -150px; right: -150px; animation: drift 20s infinite alternate-reverse ease-in-out; 
+}

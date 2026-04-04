@@ -1,0 +1,129 @@
+<!-- views/dashboard.html -->
+<header class="view-header">
+    <h1>Command Center <span class="badge badge-success ml-2">LIVE 🔥</span></h1>
+</header>
+
+<!-- 4 Key Stats -->
+<div class="metrics-row layout-4">
+    <div class="metric-card glass-panel">
+        <div class="m-card-top">
+            <span class="m-label">Total Transactions</span>
+            <i data-lucide="activity" class="icon-sm text-secondary"></i>
+        </div>
+        <div class="m-value counter" data-target="3824901">0</div>
+        <div class="m-trend text-success"><i data-lucide="trending-up" class="icon-xs"></i> 12% this week</div>
+    </div>
+    <div class="metric-card glass-panel">
+        <div class="m-card-top">
+            <span class="m-label">Fraud Detected</span>
+            <i data-lucide="shield-off" class="icon-sm text-secondary"></i>
+        </div>
+        <div class="m-value counter text-danger prefix" data-target="1245000" data-prefix="₹">0</div>
+        <div class="m-trend text-danger"><i data-lucide="alert-circle" class="icon-xs"></i> High Risk Period</div>
+    </div>
+    <div class="metric-card glass-panel">
+        <div class="m-card-top">
+            <span class="m-label">Accuracy Rate</span>
+            <i data-lucide="target" class="icon-sm text-secondary"></i>
+        </div>
+        <div class="m-value text-neon">99.8%</div>
+        <div class="m-trend text-success"><i data-lucide="check-circle" class="icon-xs"></i> ML Model Stable</div>
+    </div>
+    <div class="metric-card glass-panel">
+        <div class="m-card-top">
+            <span class="m-label">Global Risk Score</span>
+            <i data-lucide="radio" class="icon-sm text-secondary"></i>
+        </div>
+        <div class="m-value text-warning" id="global-risk-text">14%</div>
+        <div class="m-trend text-warning"><i data-lucide="info" class="icon-xs"></i> Elevated</div>
+    </div>
+</div>
+
+<div class="dash-grid layout-2-1 mt-6">
+    <!-- Left Column -->
+    <div class="dash-left flex-col gap-6">
+        <div class="panel-card glass-panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Transaction Volume (24h)</h3>
+            </div>
+            <div class="chart-wrapper p-4" style="height: 280px;">
+                <canvas id="timeSeriesChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="panel-card glass-panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Recent Transactions</h3>
+            </div>
+            <div class="table-wrap">
+                <table class="txn-table w-full text-left" id="live-txn-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Amount (₹)</th>
+                            <th>Location</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="dash-right flex-col gap-6">
+        <div class="panel-card glass-panel">
+            <div class="panel-header"><h3 class="panel-title">Fraud Risk Gauge</h3></div>
+            <div class="gauge-container p-6">
+                <div class="gauge-arc">
+                    <div class="gauge-fill" id="risk-gauge"></div>
+                </div>
+                <div class="gauge-val" id="risk-val">14%</div>
+                <p class="text-secondary text-center text-sm mt-4">Current network anomaly level</p>
+            </div>
+        </div>
+
+        <div class="panel-card glass-panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Distribution Overview</h3>
+            </div>
+            <div class="chart-wrapper p-4" style="height: 220px;">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="panel-card glass-panel ai-insights p-6">
+            <div class="m-card-top mb-2">
+                <span class="m-label text-neon"><i data-lucide="sparkles" class="icon-sm"></i> SecurePay-AI Insights</span>
+            </div>
+            <div class="text-sm font-medium" style="line-height: 1.6;">
+                "Algorithm detects a 4% anomaly shift from IP ranges in Eastern Europe. Recommend tightening distance velocity rules."
+            </div>
+            <button class="btn-outline btn-sm w-full mt-4 view-switch locked-link" data-target="alerts">View Threat Report</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Alerts Feed -->
+<div class="panel-card glass-panel mt-6">
+    <div class="panel-header">
+        <h3 class="panel-title"><i data-lucide="bell-ring" class="icon-sm mr-2 text-warning"></i> Recent System Threats</h3>
+        <span class="badge badge-warning">LIVE UPDATES</span>
+    </div>
+    <div class="p-4">
+        <div id="dashboard-alerts-feed" class="flex-col gap-3">
+            <div class="alert-mini p-3 rounded-lg border-subtle bg-black-40 flex items-center justify-between" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; border-radius: 8px; font-weight: 500;">
+                <span class="text-sm">⚠️ Suspicious transaction ₹45,000 detected from unknown IP</span>
+                <span class="text-xs text-secondary">Just now</span>
+            </div>
+            <div class="alert-mini p-3 mt-2 rounded-lg border-subtle bg-black-40 flex items-center justify-between" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; border-radius: 8px; font-weight: 500;">
+                <span class="text-sm">⚠️ Unusual login attempt from Singapore VPN</span>
+                <span class="text-xs text-secondary">2 mins ago</span>
+            </div>
+        </div>
+    </div>
+</div>
