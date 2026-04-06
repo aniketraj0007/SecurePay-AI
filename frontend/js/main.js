@@ -33,10 +33,13 @@ function setupDynamicEvents() {
             const auth = window.authData ? window.authData.auth : null;
             const authBtnText = document.getElementById('auth-btn-text');
             
-            if (isLoginMode && email === "admin@gmail.com" && pwd === "1234") {
-                if(window.authData) window.authData.updateAuthUI({ email, displayName: 'Admin' });
-                if(window.ui) window.ui.showAlert("Admin Login Successful ✅", false);
-                return;
+            if (isLoginMode) {
+                // Demo/Admin Bypass
+                if ((email === "admin@gmail.com" || email === "anitri8083@gmail.com") && pwd === "1234") {
+                    if(window.authData) window.authData.updateAuthUI({ email, displayName: email === "admin@gmail.com" ? 'Admin' : 'Developer' });
+                    if(window.ui) window.ui.showAlert("Demo Login Successful ✅", false);
+                    return;
+                }
             }
 
             if(!auth) {
@@ -97,6 +100,14 @@ function setupDynamicEvents() {
 
     document.addEventListener('click', async (e) => {
         const target = e.target;
+
+        // --- Guest Sign-In ---
+        if (target.id === 'btn-guest') {
+            e.preventDefault();
+            if(window.authData) window.authData.updateAuthUI({ email: 'guest@securepay.ai', displayName: 'Guest User' });
+            if(window.ui) window.ui.showAlert("Logged in as Guest 👤", false);
+            if(window.ui) window.ui.closeModal();
+        }
 
         // --- Google Sign-In ---
         if (target.closest('#btn-google')) {
